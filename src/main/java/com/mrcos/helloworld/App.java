@@ -22,10 +22,11 @@ public class App {
 		 * applicationcontext is a bean container which can instantiate beans
 		 */
 		
-		BeanFactory factory;
+		
 		ApplicationContext context=new FileSystemXmlApplicationContext("beans.xml");
 		Person p1=(Person) context.getBean("person");
 		p1.speak();
+		
 		
 
 	}
