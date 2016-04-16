@@ -10,7 +10,7 @@ public class App{
 		Person person=(Person) context.getBean("person");
 		System.out.println(person);
 		
-		//mfrekfokreokfoke
+		
 		((ClassPathXmlApplicationContext)context).close();
 	}
 
