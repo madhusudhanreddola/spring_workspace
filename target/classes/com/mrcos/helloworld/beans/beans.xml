@@ -21,7 +21,7 @@
 	<alias name="p1" alias="person" />
 
 
-	<bean id="address" class="com.mrcos.helloworld.Address">
+	<bean id="address" class="com.mrcos.helloworld.Address" scope="prototype">
 		<constructor-arg value="burnsford ave"></constructor-arg>
 		<constructor-arg value="06606"></constructor-arg>
 	</bean>

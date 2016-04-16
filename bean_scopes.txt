@@ -1,0 +1,54 @@
+*Bean Scopes:
+	by declaring bean scopes, we control creation of number of instances of a bean.
+	By default, there are 5 bean scopes in spring
+			*singleton(Default)
+					single bean defination to single instance per IOC Container
+					*same object to any number of references
+			*prototype
+					single bean defination to any number of instance
+			*request
+					single bean definition to the lifecycle of a single HTTP request
+					Only valid in the context of a web-aware Spring ApplicationContext.
+			*session
+					a single bean definition to the lifecycle of an HTTP Session. 
+					Only valid in the context of a web-aware Spring ApplicationContext.
+			*globalsession
+					a single bean definition to the lifecycle of a global HTTP Session
+					Typically only valid when used in a portlet context. 
+					Only valid in the context of a web-aware Spring ApplicationContext. 
+	
+	We can also create our own custom scope
+	
+	Customscope:
+	
+		To integrate your custom scope(s) into the Spring container,
+		 you need to implement the org.springframework.beans.factory.config.Scope interface
+		 
+		 The Scope interface has four methods to get objects from the scope, remove them from the scope,
+		  and allow them to be destroyed.
+				*Object get(String name, ObjectFactory objectFactory)
+				*Object remove(String name)
+				*void registerDestructionCallback(String name, Runnable destructionCallback)
+				*String getConversationId()
+
+
+			The example below uses SimpleThreadScope which is included with Spring, but not registered by default. 
+			The instructions would be the same for your own custom Scope implementations.
+					Scope threadScope = new SimpleThreadScope();
+					beanFactory.registerScope("thread", threadScope);
+					<bean id="..." class="..." scope="thread">
+
+			OR BY XML
+  			
+  			<bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+      		<property name="scopes">
+          		<map>
+              		<entry key="thread">
+                  		<bean class="org.springframework.context.support.SimpleThreadScope"/>
+              		</entry>
+          		</map>
+      		</property>
+  			</bean>
+
+  			<bean id="bar" class="x.y.Bar" scope="thread">
+      		
