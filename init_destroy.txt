@@ -1,5 +1,6 @@
-you can create some methods and can call them before bean instantiation or destroy
-
-after initialize
-before destroy 
+*you can create some methods and can call them before bean instantiation or destroy
+			after initialize
+			before destroy 
+			
+* when you create beans using factory bean, it is intialized first and then the other processing starts
 

@@ -4,23 +4,26 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
 	default-init-method="init" default-destroy-method="destory">
 
+	<bean id="person2" class="com.mrcos.helloworld.Person"
+		factory-method="createPerson" factory-bean="personfactory">
+		<constructor-arg value="1" ></constructor-arg>
+		<constructor-arg value="madhu" ></constructor-arg>
+		
+	</bean>
 
-	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person" 
-		init-method="onCreate" destroy-method="onDestory">
+	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person"
+		init-method="onCreate" destroy-method="onDestory"
+		factory-method="getPerson">
 		<!-- <property name="taxId" value="3"></property> -->
 		<property name="taxId">
 			<value>3</value>
 		</property>
-
 		<constructor-arg value="1" index="0"></constructor-arg>
 		<constructor-arg value="madhu" name="city"></constructor-arg>
 		<constructor-arg value="hyderabad"></constructor-arg>
 		<constructor-arg ref="address"></constructor-arg>
 		<constructor-arg value="5"></constructor-arg>
-		
-		
 	</bean>
-
 	<alias name="p1" alias="person" />
 
 
@@ -30,4 +33,7 @@
 	</bean>
 
 
+	<bean id="personfactory"
+		class="com.mrcos.helloworld.PersonFactory">
+	</bean>
 </beans>

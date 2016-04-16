@@ -34,7 +34,10 @@ public class Person {
 		this.taxId = taxId;
 	}
 	
-	
+	public static Person getPerson(int id,String name,String city,Address address,int taxid){
+		System.out.println("factory method called on person");
+		return new Person(id, name,city,address,taxid);
+	}
 	
 	void init(){
 		System.out.println("Person bean created: "+this);
