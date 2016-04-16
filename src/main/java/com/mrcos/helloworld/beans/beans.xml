@@ -5,12 +5,19 @@
 
 
 	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person">
-
+		<!-- 
+			<property name="taxId" value="3"></property>
+		 -->
+		<property name="taxId">
+			<value>3</value>
+		</property>
+		
 		<constructor-arg value="1" index="0" ></constructor-arg>
 		<constructor-arg value="madhu" name="city"></constructor-arg>
 		<constructor-arg value="hyderabad"></constructor-arg>
+		
 	</bean>
-	
+
 	<alias name="p1" alias="person"/>
 
 
