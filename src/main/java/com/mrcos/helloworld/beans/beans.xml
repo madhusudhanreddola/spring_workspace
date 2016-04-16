@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person">
+
+		<constructor-arg value="1" index="0" ></constructor-arg>
+		<constructor-arg value="madhu" name="city"></constructor-arg>
+		<constructor-arg value="hyderabad"></constructor-arg>
+	</bean>
+	
+	<alias name="p1" alias="person"/>
+
+
+</beans>

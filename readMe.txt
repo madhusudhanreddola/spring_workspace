@@ -1,4 +1,5 @@
-official spring documentation at
+//update 1&2
+**official spring documentation at
 http://docs.spring.io/autorepo/docs/spring/3.2.x/spring-framework-reference/html/index.html
 
 we created a project using maven
@@ -16,10 +17,153 @@ Now we need to create a xml file to hold the bean configuration. go to other->sp
 
 we get a xml file with the namespaces defined
 
-IOC Containers
+IOC Container:
 
-we can create a bean by using the user interface in eclipse, we get something like
-<bean id="person" class="com.mrcos.helloworld.Person"></bean>
+	*IOC(Inversion Of control) also known as dependency Injection(DI) is a process where by objects
+		define their dependencies using constructor-args or properties or args to a facory method.
+	
+		IOC container then injects those dependencies at the time of creation of beans.
+		This process is fundamentally the inverse, hence the name Inversion of Control (IoC),
+	 
+		  
+	*BeanFactory provides the configuration framework and basic functionality, 
+		and the ApplicationContext adds more enterprise-specific functionality.
+ 	
+ 			The ApplicationContext is a complete superset(sub-interface) of the BeanFactory,
+ 			It adds easier integration with Spring's AOP features; message resource handling (for use in internationalization),
+ 	 		event publication; 
+ 			and application-layer specific contexts such as the WebApplicationContext for use in web applications.
+ 			 			
+ 			 A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. 
+ 			 Otherwise, a bean is simply one of many objects in your application. 
+ 			 Beans, and the dependencies among them, are reflected in the configuration metadata used by a container.
+ 	
+ 	The interface org.springframework.context.ApplicationContext represents the Spring IoC container
+ 	and is responsible for instantiating, configuring, and assembling the aforementioned beans.
+ 	
+ 	The container gets its instructions on what objects to instantiate, configure, and assemble by reading configuration metadata. 
+ 	The configuration metadata is represented in
+ 		 *XML, 
+ 		 *annotations based(from spring 2.5) 
+ 		 *Java-based configuration(from spring 3.0)
+ 	It allows you to express the objects that compose your application and the rich interdependencies between such objects.
+
+	Several implementations of the ApplicationContext interface are supplied out-of-the-box with Spring. 
+	In standalone applications it is common to create an instance of 
+		*ClassPathXmlApplicationContext or 
+		*FileSystemXmlApplicationContext
+
+*Bean creation using xml configuration
+	we can create a bean by using the user interface in eclipse(STS), we get something like
+		<bean id="person" class="com.mrcos.helloworld.Person"></bean>
+	com.mrcos.helloworld.Person is a pojo class in your app
 
 
 
+//update 2
+	*Calling a bean declared in xml from java code
+		ApplicationContext context=new FileSystemXmlApplicationContext("beans.xml");
+		
+		you can call configurations from multiple bean files as below
+		ApplicationContext context =new FileSystemXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
+		
+		Person person=context.getBean("person");
+		(or)
+		Person person=context.getBean("person",Person.class);
+	
+	**initially we created a context by using below line of code
+		ApplicationContext context=new FileSystemXmlApplicationContext("beans.xml");
+		
+		If you have multiple beans config files to handle , then you can create  beans package and place all the xml's over there.
+		Then to link your bean configuration file , you have to give full Qualified path 
+			ApplicationContext context=new FileSystemXmlApplicationContext("src/main/java/com/mrcos/helloworld/beans/beans.xml");
+	
+	*Instead you can also initialize context by using classpathxmlapplicationcontext and just start the path from package name.
+		ApplicationContext context=new ClassPathXmlApplicationContext("com/mrcos/helloworld/beans/beans.xml");
+
+*Bean Naming conventions
+	Every bean has one or more identifiers. These identifiers must be unique within the container that hosts the bean. 
+	A bean usually has only one identifier, but if it requires more than one, the extra ones can be considered aliases.
+	
+	
+	
+	you can declare multiple identifiers by 
+		<bean id="p1" name="p2,p3;person" class="com.mrcos.helloworld.Person">
+		
+		you can give only one value in id,
+		but multiple values separated by ',' or ';' in name
+		
+	or you can give more names  to bean  by using alias
+		<alias name="person" alias="new_person"/>
+		<alias name="new_person" alias="after_new_person"/>
+		
+*you can also get the bean declarations from one xml file into other xml file by importing them using 
+		<import resource="services.xml"/>
+		<import resource="resources/messageSource.xml"/>
+
+		
+*Bean Instantiation
+	spring bean instantiation is done by below methods
+		*constructor
+			<bean id="exampleBean" class="examples.ExampleBean"/>
+		*static factory method
+					you just do it, when you declare the bean, factory-method returns the instance of the class
+						<bean id="clientService" class="examples.ClientService" factory-method="createInstance"/>
+		*instance(non-static) factory method			
+				<bean id="serviceLocator" class="examples.DefaultServiceLocator"></bean>
+			then
+				<bean id="clientService" factory-bean="serviceLocator" factory-method="createClientServiceInstance"/>
+				
+				
+*DI exists in two major variants, 
+	*Constructor-based dependency injection and 
+	*Setter-based dependency injection.
+		
+	*Constructor-based dependency injection
+			Constructor-based DI is accomplished by the container invoking a constructor with a number of arguments, each representing a dependency.
+			
+			public Foo(Bar bar, Baz baz) {
+  			}
+  			
+  			<beans>
+  				<bean id="foo" class="x.y.Foo">
+      					<constructor-arg ref="bar"/>
+      					<constructor-arg ref="baz"/>
+  				</bean>
+  				<bean id="bar" class="x.y.Bar"/>
+  				<bean id="baz" class="x.y.Baz"/>
+			</beans>
+			
+			*BY Type
+				<constructor-arg type="int" value="7500000"/>
+				<constructor-arg type="java.lang.String" value="42"/>
+			
+			*BY Index
+				<constructor-arg index="0" value="7500000"/>
+				<constructor-arg index="1" value="42"/>
+			
+			*BY Name
+				<constructor-arg name="years" value="7500000"/>
+				<constructor-arg name="ultimateanswer" value="42"/>
+			
+	*Setter-based dependency injection
+			Setter-based DI is accomplished by the container calling setter methods on your beans 
+			after invoking a no-argument constructor or no-argument static factory method to instantiate your bean.
+
+			<property name="username" value="root"/>
+			//equivalent to setUserName() in the class
+
+
+*Dependency resolution process
+
+The container performs bean dependency resolution as follows:
+
+The ApplicationContext is created and initialized with configuration metadata that describes all the beans. 
+Configuration metadata can be specified via XML, Java code or annotations.
+For each bean, its dependencies are expressed in the form of properties, constructor arguments, or arguments to the static-factory
+method if you are using that instead of a normal constructor.
+ These dependencies are provided to the bean, when the bean is actually created.
+Each property or constructor argument is an actual definition of the value to set, or a reference to another bean in the container.
+Each property or constructor argument which is a value is converted from its specified format to the actual type of that property 
+or constructor argument. By default Spring can convert a value supplied in string format to all built-in types, 
+such as int, long, String, boolean, etc.
