@@ -5,20 +5,26 @@
 
 
 	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person">
-		<!-- 
-			<property name="taxId" value="3"></property>
-		 -->
+		<!-- <property name="taxId" value="3"></property> -->
 		<property name="taxId">
 			<value>3</value>
 		</property>
-		
-		<constructor-arg value="1" index="0" ></constructor-arg>
+
+		<constructor-arg value="1" index="0"></constructor-arg>
 		<constructor-arg value="madhu" name="city"></constructor-arg>
 		<constructor-arg value="hyderabad"></constructor-arg>
-		
+		<constructor-arg ref="address"></constructor-arg>
+		<constructor-arg value="5"></constructor-arg>
+
 	</bean>
 
-	<alias name="p1" alias="person"/>
+	<alias name="p1" alias="person" />
+
+
+	<bean id="address" class="com.mrcos.helloworld.Address">
+		<constructor-arg value="burnsford ave"></constructor-arg>
+		<constructor-arg value="06606"></constructor-arg>
+	</bean>
 
 
 </beans>

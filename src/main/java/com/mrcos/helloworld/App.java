@@ -30,7 +30,12 @@ public class App {
 		Person person=context.getBean("person",Person.class);
 		person.speak();
 		System.out.println(person);
-
+		
+		
+		Address address=context.getBean("address", Address.class);
+		System.out.println(address);
+		
+		
 
 		// ((FileSystemXmlApplicationContext)context).close();
 		((ClassPathXmlApplicationContext)context).close();
