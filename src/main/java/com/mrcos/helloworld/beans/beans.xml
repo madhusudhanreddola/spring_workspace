@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="init" default-destroy-method="destory">
 
 
-	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person">
+	<bean id="p1" name="p2,p3;p3;p4" class="com.mrcos.helloworld.Person" 
+		init-method="onCreate" destroy-method="onDestory">
 		<!-- <property name="taxId" value="3"></property> -->
 		<property name="taxId">
 			<value>3</value>
@@ -15,7 +17,8 @@
 		<constructor-arg value="hyderabad"></constructor-arg>
 		<constructor-arg ref="address"></constructor-arg>
 		<constructor-arg value="5"></constructor-arg>
-
+		
+		
 	</bean>
 
 	<alias name="p1" alias="person" />

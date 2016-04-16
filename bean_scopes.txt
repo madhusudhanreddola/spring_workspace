@@ -15,7 +15,10 @@
 			*globalsession
 					a single bean definition to the lifecycle of a global HTTP Session
 					Typically only valid when used in a portlet context. 
-					Only valid in the context of a web-aware Spring ApplicationContext. 
+					Only valid in the context of a web-aware Spring ApplicationContext.
+					
+*You cannot dependency-inject a prototype-scoped bean into your singleton bean 
+*for prototype scope beans, entire life cycle is not handled by spring. destroy method of this beans are never called
 	
 	We can also create our own custom scope
 	

@@ -21,5 +21,9 @@ public class Address {
 		this.street = street;
 		this.postcode = postcode;
 	};
+	
+	void init(){
+		System.out.println("bean created: "+this);
+	}
 
 }

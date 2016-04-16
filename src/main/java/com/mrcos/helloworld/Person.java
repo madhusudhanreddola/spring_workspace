@@ -33,6 +33,12 @@ public class Person {
 		this.address = address;
 		this.taxId = taxId;
 	}
+	
+	
+	
+	void init(){
+		System.out.println("Person bean created: "+this);
+	}
 
 	@org.junit.Test
 	public void speak() {
@@ -51,6 +57,14 @@ public class Person {
 	public String toString() {
 		return "Person [id=" + id + ", name=" + name + ", city=" + city + ", address=" + address + ", taxId=" + taxId
 				+ "]";
+	}
+	
+	public void onCreate(){
+		System.out.println("person Creaed: "+this);
+	}
+	
+	public void onDestory(){
+		System.out.println("Person Destroyed"+this);
 	}
 
 }

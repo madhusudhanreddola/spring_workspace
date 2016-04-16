@@ -1,0 +1,5 @@
+you can create some methods and can call them before bean instantiation or destroy
+
+after initialize
+before destroy 
+
